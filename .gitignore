@@ -55,3 +55,6 @@ Desktop.ini
 .tmp/
 
 .vercel
+
+# Local secret cache (per-developer, never committed)
+.secret-local/
