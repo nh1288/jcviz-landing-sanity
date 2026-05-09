@@ -49,6 +49,14 @@ type SanityPositioning = Omit<PositioningData, 'manifestoLines'> & {
 	manifesto?: unknown;
 };
 
+/**
+ * Cache-tag every fetch with `sanity` so the webhook's
+ * `revalidateTag('sanity')` invalidates them all in one shot.
+ */
+const FETCH_OPTIONS = {
+	next: { tags: ['sanity'] },
+};
+
 export const getLandingContent = cache(
 	async (): Promise<LandingContent> => {
 		try {
@@ -65,17 +73,17 @@ export const getLandingContent = cache(
 				contact,
 				seo,
 			] = await Promise.all([
-				client.fetch<SiteSettings | null>(SITE_SETTINGS_QUERY),
-				client.fetch<HeroData | null>(HERO_QUERY),
-				client.fetch<SanityPositioning | null>(POSITIONING_QUERY),
-				client.fetch<Service[] | null>(SERVICES_QUERY),
-				client.fetch<ValuePoint[] | null>(VALUE_POINTS_QUERY),
-				client.fetch<ProjectType[] | null>(PROJECT_TYPES_QUERY),
-				client.fetch<ProcessStep[] | null>(PROCESS_STEPS_QUERY),
-				client.fetch<PortfolioItem[] | null>(PORTFOLIO_ITEMS_QUERY),
-				client.fetch<FinalCtaData | null>(FINAL_CTA_QUERY),
-				client.fetch<ContactInfo | null>(CONTACT_INFO_QUERY),
-				client.fetch<SeoSettings | null>(SEO_SETTINGS_QUERY),
+				client.fetch<SiteSettings | null>(SITE_SETTINGS_QUERY, {}, FETCH_OPTIONS),
+				client.fetch<HeroData | null>(HERO_QUERY, {}, FETCH_OPTIONS),
+				client.fetch<SanityPositioning | null>(POSITIONING_QUERY, {}, FETCH_OPTIONS),
+				client.fetch<Service[] | null>(SERVICES_QUERY, {}, FETCH_OPTIONS),
+				client.fetch<ValuePoint[] | null>(VALUE_POINTS_QUERY, {}, FETCH_OPTIONS),
+				client.fetch<ProjectType[] | null>(PROJECT_TYPES_QUERY, {}, FETCH_OPTIONS),
+				client.fetch<ProcessStep[] | null>(PROCESS_STEPS_QUERY, {}, FETCH_OPTIONS),
+				client.fetch<PortfolioItem[] | null>(PORTFOLIO_ITEMS_QUERY, {}, FETCH_OPTIONS),
+				client.fetch<FinalCtaData | null>(FINAL_CTA_QUERY, {}, FETCH_OPTIONS),
+				client.fetch<ContactInfo | null>(CONTACT_INFO_QUERY, {}, FETCH_OPTIONS),
+				client.fetch<SeoSettings | null>(SEO_SETTINGS_QUERY, {}, FETCH_OPTIONS),
 			]);
 
 			return {
