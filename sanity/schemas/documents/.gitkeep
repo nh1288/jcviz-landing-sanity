@@ -1,0 +1,9 @@
+# Collection schemas (multiple ordered documents) land here in phase 2:
+#   service.ts        — 4 documents
+#   valuePoint.ts     — 6 documents
+#   projectType.ts    — 8 documents
+#   processStep.ts    — 5 documents
+#   portfolioItem.ts  — 6 documents
+#
+# All carry an `order` field surfaced via Studio's orderable-document-list
+# plugin so editors can drag to reorder.

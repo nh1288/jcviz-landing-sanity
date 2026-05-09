@@ -1,0 +1,10 @@
+# Singleton schemas (one document each) land here in phase 2:
+#   siteSettings.ts       — brand, nav, footer columns
+#   heroSection.ts        — hero copy + marquee items
+#   positioningSection.ts — manifesto + positioning detail
+#   finalCta.ts           — closing call-to-action
+#   contactInfo.ts        — email, phone, address, booking status
+#   seoSettings.ts        — site-wide SEO defaults
+#
+# Each registers a `__experimental_actions` constraint so the document can
+# be edited but not duplicated or deleted from Studio (singleton pattern).

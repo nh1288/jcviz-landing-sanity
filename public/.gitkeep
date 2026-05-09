@@ -1,0 +1,6 @@
+# Static public assets land here:
+#   favicon.ico, favicon-32x32.png, apple-touch-icon.png
+#   og-fallback.jpg (1200x630)
+#   any locked-in static asset that should not live in Sanity
+#
+# Real JCVIZ render images go into Sanity (via Studio upload) — not here.

@@ -1,0 +1,5 @@
+# Layout components land here in phase 3:
+#   Header.tsx (brand + nav + primary CTA)
+#   Footer.tsx (4 columns + contact + foot-mark)
+#
+# Both pull from siteSettings + contactInfo singletons.

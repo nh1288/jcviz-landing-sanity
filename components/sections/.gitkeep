@@ -1,0 +1,5 @@
+# Section components land here in phase 3 (UI components):
+#   Hero.tsx · Positioning.tsx · Services.tsx · Value.tsx
+#   ProjectTypes.tsx · Process.tsx · PortfolioPreview.tsx · FinalCta.tsx
+#
+# Each is a React Server Component that runs its own GROQ fetch.

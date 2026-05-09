@@ -1,0 +1,6 @@
+# Small reusable UI primitives. Likely candidates:
+#   Button.tsx          — .btn-gold / .btn-ghost / .btn-line variants
+#   Eyebrow.tsx         — JetBrains Mono uppercase eyebrow
+#   Marquee.tsx         — looped horizontal text track
+#   HeadlineWithAccent.tsx — 2-or-4-part headline with gold-italic accent words
+#   SectionHead.tsx     — eyebrow + h2 + lede pattern shared by most sections

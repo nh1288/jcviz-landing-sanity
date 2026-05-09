@@ -1,0 +1,6 @@
+# Reusable inline objects land here in phase 2:
+#   cta.ts                 — { label, href, mode: 'url' | 'mailto' | 'tel' }
+#   imageWithAlt.ts        — { asset, alt, caption?, hotspot, crop }
+#   headlineWithAccent.ts  — multi-part headline; alternates plain + gold-italic words
+#
+# These are not standalone documents; they're embedded into singleton/collection schemas.
