@@ -1,5 +1,6 @@
 /**
- * Positioning — manifesto statement followed by a positioning detail.
+ * Positioning — manifesto statement (Part 1), followed by the Feature
+ * Project block (FeatureProject.tsx, hardcoded in Phase 1).
  *
  * Manifesto segments carry a `tone` (`normal` / `dim` / `gold`) so each
  * word can be marked editorially. The CSS classes `.dim` and `.gold`
@@ -8,6 +9,7 @@
 
 import { Fragment } from 'react';
 
+import { FeatureProject } from '@/components/sections/FeatureProject';
 import type { PositioningData } from '@/lib/types';
 
 type PositioningProps = {
@@ -15,8 +17,6 @@ type PositioningProps = {
 };
 
 export function Positioning({ data }: PositioningProps) {
-	const headline = data.detailHeadline;
-
 	return (
 		<>
 			<section className="intro-state" id="positioning" data-reveal>
@@ -29,9 +29,7 @@ export function Positioning({ data }: PositioningProps) {
 							<Fragment key={lineIdx}>
 								{line.segments.map((seg, segIdx) => {
 									if (seg.tone === 'normal') {
-										return (
-											<Fragment key={segIdx}>{seg.text}</Fragment>
-										);
+										return <Fragment key={segIdx}>{seg.text}</Fragment>;
 									}
 									return (
 										<span
@@ -49,45 +47,7 @@ export function Positioning({ data }: PositioningProps) {
 				</div>
 			</section>
 
-			{headline || data.detailParagraphs.length > 0 ? (
-				<section className="positioning-detail" data-reveal>
-					<div className="positioning-detail-wrap">
-						<div className="positioning-meta">
-							{data.detailEyebrow ? (
-								<span className="eyebrow gold-text">{data.detailEyebrow}</span>
-							) : null}
-						</div>
-						<div className="positioning-body">
-							{headline ? (
-								<h2 className="display">
-									{headline.partA}
-									{headline.accentA ? (
-										<>
-											{' '}
-											<span className="gold it">{headline.accentA}</span>
-										</>
-									) : null}
-									{headline.partB ? <> {headline.partB}</> : null}
-									{headline.accentB ? (
-										<>
-											{' '}
-											<span className="gold it">{headline.accentB}</span>
-										</>
-									) : null}
-									{headline.suffix ?? ''}
-								</h2>
-							) : null}
-							<div className="positioning-cols">
-								{data.detailParagraphs.map((p, i) => (
-									<p key={i} className="body-lg">
-										{p}
-									</p>
-								))}
-							</div>
-						</div>
-					</div>
-				</section>
-			) : null}
+			<FeatureProject />
 		</>
 	);
 }

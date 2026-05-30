@@ -556,6 +556,44 @@ footer.foot{padding:80px 32px 32px;border-top:1px solid var(--line);
 }
 
 /* ============================================================
+   FEATURE PROJECT — editorial case-study block (Phase 1, hardcoded).
+   Replaces the old positioning-detail copy. Desktop: large headline left,
+   client/scope/year/location meta right. Mobile: stacked, meta below.
+   Dark premium / editorial — no SaaS cards.
+   ============================================================ */
+.feature-project{position:relative;z-index:2}
+.fp-top{max-width:1480px;margin:0 auto 56px;display:flex;justify-content:space-between;
+  align-items:baseline;gap:24px;flex-wrap:wrap;padding-top:16px;border-top:1px solid var(--gold)}
+.fp-label{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--gold)}
+.fp-reel{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--ink-faint)}
+.fp-wrap{max-width:1480px;margin:0 auto;display:grid;
+  grid-template-columns:minmax(0,1fr) 300px;gap:80px;align-items:end}
+.fp-headline{font-family:'Cormorant Garamond',serif;font-weight:300;
+  font-size:clamp(40px,5.5vw,88px);line-height:1.02;letter-spacing:-.02em;
+  margin:0;color:#FBF6EB}
+.fp-headline .gold{color:var(--gold)}
+.fp-meta{margin:0;display:flex;flex-direction:column;gap:22px}
+.fp-meta-row{display:flex;flex-direction:column;gap:6px;padding-top:14px;
+  border-top:1px solid var(--line)}
+.fp-meta-row dt{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--ink-faint)}
+.fp-meta-row dd{margin:0;font-size:15px;line-height:23px;color:var(--ink-dim)}
+
+@media (max-width:900px){
+  .fp-wrap{grid-template-columns:1fr;gap:40px;align-items:start}
+  .fp-meta{flex-direction:row;flex-wrap:wrap;gap:28px 48px}
+  .fp-meta-row{flex:1 1 40%;min-width:160px}
+}
+@media (max-width:640px){
+  .fp-top{margin-bottom:36px}
+  .fp-headline{font-size:clamp(32px,8.5vw,60px)}
+  .fp-meta{flex-direction:column;gap:20px}
+  .fp-meta-row{flex:1 1 auto}
+}
+
+/* ============================================================
    MOBILE NAV (hamburger) — shown <=1100px; desktop (>1100px) unchanged.
    Desktop nav genuinely needs ~1100px to fit, so the swap happens there
    (matches where .nav-links already hides) — no "lost nav" gap.
