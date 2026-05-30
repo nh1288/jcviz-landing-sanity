@@ -554,3 +554,96 @@ footer.foot{padding:80px 32px 32px;border-top:1px solid var(--line);
   .bloom,.bloom.b2,.bloom.b3,.haze,.ambient::before,.ambient::after,
   .hero-grain,.mote,.marquee-track,.hero-foot .scroll .ln{animation:none !important}
 }
+
+/* ============================================================
+   MICRO-INTERACTIONS — refinement pass (lower sections)
+   "More expensive, not busier": restrained gold-hairline reveals,
+   ghost-number fills, slow confident easing. Pure CSS, hover-only
+   (no new autoplay motion). Appended last to layer over base rules.
+   ============================================================ */
+
+/* VALUE — was fully static. A vertical gold hairline draws down the
+   leading edge, the eyebrow rule extends, the title lifts a hair. */
+.value-cell{position:relative;transition:background .55s cubic-bezier(.22,.61,.36,1)}
+.value-cell::before{content:"";position:absolute;left:0;top:0;width:2px;height:100%;
+  background:linear-gradient(180deg,var(--gold),transparent 85%);
+  transform:scaleY(0);transform-origin:top;pointer-events:none;
+  transition:transform .6s cubic-bezier(.22,.61,.36,1)}
+.value-cell:hover{background:rgba(212,177,115,.035)}
+.value-cell:hover::before{transform:scaleY(1)}
+.value-cell .eyebrow{transition:width .6s cubic-bezier(.22,.61,.36,1)}
+.value-cell:hover .eyebrow{width:72px}
+.value-cell h4{transition:transform .55s cubic-bezier(.22,.61,.36,1)}
+.value-cell:hover h4{transform:translateY(-2px)}
+
+/* PROCESS — the ghost (outlined) step number fills with solid gold and
+   lifts; a gold rule draws across the top edge; duration warms. */
+.pstep{transition:background .55s cubic-bezier(.22,.61,.36,1)}
+.pstep::after{content:"";position:absolute;top:-1px;left:0;width:100%;height:1px;
+  background:var(--gold);transform:scaleX(0);transform-origin:left;pointer-events:none;
+  transition:transform .6s cubic-bezier(.22,.61,.36,1)}
+.pstep:hover{background:rgba(212,177,115,.03)}
+.pstep:hover::after{transform:scaleX(1)}
+.pstep .pn{transition:color .6s cubic-bezier(.22,.61,.36,1),
+  transform .6s cubic-bezier(.22,.61,.36,1)}
+.pstep:hover .pn{color:var(--gold);transform:translateY(-3px)}
+.pstep h4{transition:transform .55s cubic-bezier(.22,.61,.36,1)}
+.pstep:hover h4{transform:translateY(-2px)}
+.pstep .dur{transition:color .5s ease}
+.pstep:hover .dur{color:var(--gold)}
+
+/* PROJECT TYPES — keep the subtle tint, add a top hairline draw, an amber
+   bloom inside the visual plate, the number's tracking opens, title lifts. */
+.type-cell{transition:background .5s cubic-bezier(.22,.61,.36,1)}
+.type-cell::after{content:"";position:absolute;top:0;left:0;width:100%;height:1px;z-index:2;
+  background:var(--gold);transform:scaleX(0);transform-origin:left;pointer-events:none;
+  transition:transform .55s cubic-bezier(.22,.61,.36,1)}
+.type-cell:hover::after{transform:scaleX(1)}
+.type-cell .type-visual{transition:filter .6s cubic-bezier(.22,.61,.36,1),
+  box-shadow .6s cubic-bezier(.22,.61,.36,1),border-color .5s ease}
+.type-cell:hover .type-visual{filter:brightness(1.18);
+  box-shadow:inset 0 0 28px rgba(212,177,115,.14);border-color:var(--line-strong)}
+.type-cell .type-num{transition:letter-spacing .5s cubic-bezier(.22,.61,.36,1)}
+.type-cell:hover .type-num{letter-spacing:.3em}
+.type-cell h4{transition:transform .5s cubic-bezier(.22,.61,.36,1)}
+.type-cell:hover h4{transform:translateY(-2px)}
+
+/* SERVICES — image zoom already exists; warm the tag + lift/illuminate chips. */
+.service .tag{transition:border-color .45s ease,color .45s ease}
+.service:hover .tag{border-color:var(--gold);color:var(--gold)}
+.service .deliv .chip{transition:border-color .4s ease,color .4s ease,
+  background .4s ease,transform .4s cubic-bezier(.22,.61,.36,1)}
+.service .deliv .chip:hover{border-color:var(--gold);color:var(--gold);
+  background:rgba(212,177,115,.06);transform:translateY(-1px)}
+
+/* GALLERY — border + image already react; lift the caption, brighten title. */
+.g-item .label{transition:transform .6s cubic-bezier(.22,.61,.36,1)}
+.g-item:hover .label{transform:translateY(-4px)}
+.g-item .label .ti{transition:color .5s ease}
+.g-item:hover .label .ti{color:#FBF6EB}
+
+/* BUTTONS — a slow light sweep, like light catching a metal edge. */
+.btn-gold::before,.btn-ghost::before{content:"";position:absolute;top:0;left:-140%;
+  width:55%;height:100%;transform:skewX(-18deg);pointer-events:none;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.18),transparent);
+  transition:left .7s cubic-bezier(.22,.61,.36,1)}
+.btn-gold:hover::before,.btn-ghost:hover::before{left:140%}
+
+/* FOOTER — links draw a gold underline rather than only swapping color. */
+.foot-top .col a{position:relative;display:inline-block}
+.foot-top .col a::after{content:"";position:absolute;left:0;bottom:-3px;width:100%;height:1px;
+  background:var(--gold);transform:scaleX(0);transform-origin:left;
+  transition:transform .4s cubic-bezier(.22,.61,.36,1)}
+.foot-top .col a:hover::after{transform:scaleX(1)}
+
+/* Honour reduced-motion: keep the reveals instant, drop the movement. */
+@media (prefers-reduced-motion:reduce){
+  .value-cell,.value-cell::before,.value-cell .eyebrow,.value-cell h4,
+  .pstep,.pstep::after,.pstep .pn,.pstep h4,.pstep .dur,
+  .type-cell,.type-cell::after,.type-cell .type-visual,.type-cell .type-num,.type-cell h4,
+  .service .tag,.service .deliv .chip,.g-item .label,.g-item .label .ti,
+  .btn-gold::before,.btn-ghost::before,.foot-top .col a::after{
+    transition-duration:.01ms !important}
+  .value-cell:hover h4,.pstep:hover .pn,.pstep:hover h4,.type-cell:hover h4,
+  .g-item:hover .label,.service .deliv .chip:hover{transform:none !important}
+}
