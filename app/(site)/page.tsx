@@ -31,22 +31,38 @@ export async function generateMetadata(): Promise<Metadata> {
 		follow: !robotsValue.includes('nofollow'),
 	};
 
+	// Use the Sanity-managed OG image when an editor uploads one; otherwise fall
+	// back to the static branded default in public/og-default.png so social
+	// previews (Facebook / LinkedIn / Zalo) always have an image.
+	const ogImage = {
+		url: seo.ogImageUrl ?? '/og-default.png',
+		width: 1200,
+		height: 630,
+		alt: seo.defaultTitle,
+	};
+
 	return {
 		title: seo.defaultTitle,
 		description: seo.defaultDescription,
-		openGraph: seo.ogImageUrl
-			? {
-					title: seo.defaultTitle,
-					description: seo.defaultDescription,
-					images: [{ url: seo.ogImageUrl }],
-				}
-			: undefined,
-		twitter: seo.twitterHandle
-			? {
-					card: 'summary_large_image',
-					site: seo.twitterHandle,
-				}
-			: undefined,
+		alternates: { canonical: '/' },
+		openGraph: {
+			type: 'website',
+			siteName: 'JCVIZ',
+			locale: 'en_US',
+			url: '/',
+			title: seo.defaultTitle,
+			description: seo.defaultDescription,
+			images: [ogImage],
+		},
+		twitter: {
+			card: 'summary_large_image',
+			title: seo.defaultTitle,
+			description: seo.defaultDescription,
+			...(seo.twitterHandle
+				? { site: seo.twitterHandle, creator: seo.twitterHandle }
+				: {}),
+			images: [ogImage.url],
+		},
 		robots: robotsMeta,
 	};
 }

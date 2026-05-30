@@ -29,6 +29,12 @@ img{display:block;max-width:100%}
 .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
 .skip-link:focus{left:16px;top:16px;width:auto;height:auto;padding:8px 16px;background:var(--gold);color:#0a0606;z-index:9999}
 
+/* keyboard focus visibility — gold ring for all interactive elements (a11y) */
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:1px}
+a:focus-visible,button:focus-visible,.btn:focus-visible,
+.nav-links a:focus-visible,.foot-top .col a:focus-visible,.btn-line:focus-visible{
+  outline:2px solid var(--gold);outline-offset:3px}
+
 .gold-text{color:var(--gold) !important}
 
 /* type system */
@@ -533,6 +539,10 @@ footer.foot{padding:80px 32px 32px;border-top:1px solid var(--line);
   .positioning-detail{padding:80px 20px}
   .intro-state{padding:80px 20px}
   section.cta-final{padding:100px 20px}
+  /* marquee: scale down so the scrolling row stays usable on small screens */
+  .marquee{padding:20px 0}
+  .marquee-track{gap:36px}
+  .marquee-item{font-size:19px;gap:36px}
 }
 
 /* in-view reveals */
