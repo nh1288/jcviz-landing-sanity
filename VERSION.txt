@@ -1,0 +1,5 @@
+﻿JCVIZ Landing Page
+Version: 1.0.0
+Status: Active - Production-ready
+Live: https://jcviz-landing-sanity.vercel.app
+Studio: https://jcviz-landing-sanity.vercel.app/studio
