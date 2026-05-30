@@ -6,6 +6,7 @@
  */
 
 import { Button } from '@/components/ui/Button';
+import { MobileNav } from '@/components/layout/MobileNav';
 import type { Cta, SiteSettings } from '@/lib/types';
 
 type HeaderProps = {
@@ -40,6 +41,8 @@ export function Header({ site, primaryCta }: HeaderProps) {
 				</span>
 				<Button cta={primaryCta} variant="gold" />
 			</div>
+
+			<MobileNav items={site.navItems} primaryCta={primaryCta} />
 		</nav>
 	);
 }
