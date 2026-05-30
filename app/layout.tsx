@@ -17,12 +17,20 @@ const FONTS_HREF =
 	'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400&display=swap';
 
 export const metadata: Metadata = {
+	metadataBase: new URL(
+		process.env.NEXT_PUBLIC_SITE_URL ?? 'https://jcviz-landing-sanity.vercel.app',
+	),
 	title: {
 		default: 'JCVIZ — Architectural Visualization for Real Estate',
 		template: '%s | JCVIZ',
 	},
 	description:
 		'Cinematic architectural imagery for property developers, marketing teams, and architectural partners across Southeast Asia.',
+	icons: {
+		icon: [{ url: '/icon.svg', type: 'image/svg+xml' }],
+		shortcut: '/icon.svg',
+		apple: '/icon.svg',
+	},
 };
 
 export const viewport: Viewport = {

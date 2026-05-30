@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img" aria-label="JCVIZ">
+  <rect width="64" height="64" fill="#080809"/>
+  <rect x="7" y="7" width="50" height="50" fill="none" stroke="#D4B173" stroke-width="2"/>
+  <text x="32" y="45" font-family="Georgia, 'Cormorant Garamond', serif" font-style="italic" font-size="40" fill="#D4B173" text-anchor="middle">J</text>
+</svg>
