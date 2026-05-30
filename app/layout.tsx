@@ -4,7 +4,7 @@
  * (under app/studio/) inherit this shell.
  *
  * Fonts: matched to the WordPress theme (Cormorant Garamond display,
- * Inter body, JetBrains Mono eyebrow). Loaded via plain <link> for
+ * Geist body, JetBrains Mono eyebrow). Loaded via plain <link> for
  * 1:1 fidelity with the original. Could be migrated to next/font/google
  * later if we want self-hosted/optimized fonts.
  */
@@ -14,7 +14,7 @@ import type { Metadata, Viewport } from 'next';
 import './globals.css';
 
 const FONTS_HREF =
-	'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400&display=swap';
+	'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Geist:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400&display=swap';
 
 export const metadata: Metadata = {
 	metadataBase: new URL(
