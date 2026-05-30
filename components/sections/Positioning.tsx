@@ -20,6 +20,7 @@ export function Positioning({ data }: PositioningProps) {
 	return (
 		<>
 			<section className="intro-state" id="positioning" data-reveal>
+				<div className="story-glow" aria-hidden="true"></div>
 				<div className="wrap">
 					{data.manifestoNumber ? (
 						<div className="num">{data.manifestoNumber}</div>

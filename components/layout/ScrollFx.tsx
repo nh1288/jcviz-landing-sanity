@@ -124,12 +124,141 @@ export function ScrollFx() {
 			parallaxActive = true;
 		}
 
+		// 5. Reserve / Final-CTA — rising embers + cursor-reactive heat.
+		const cta = document.querySelector<HTMLElement>('.cta-final');
+		const emberHost = document.getElementById('cta-embers');
+		let ctaRaf = 0;
+		let ctaActive = false;
+		let onCtaMove: ((e: MouseEvent) => void) | null = null;
+		let onCtaLeave: (() => void) | null = null;
+
+		if (cta && emberHost && !prefersReducedMotion) {
+			if (emberHost.childElementCount === 0) {
+				const EMBER_COUNT = 18;
+				for (let i = 0; i < EMBER_COUNT; i++) {
+					const em = document.createElement('span');
+					em.className = 'ember';
+					const size = 2 + Math.random() * 4;
+					const dur = 9 + Math.random() * 9;
+					const fdur = 1.2 + Math.random() * 1.8;
+					em.style.left = `${Math.random() * 100}%`;
+					em.style.bottom = `${-6 + Math.random() * 16}%`;
+					em.style.width = `${size}px`;
+					em.style.height = `${size}px`;
+					em.style.setProperty('--drift', `${-30 + Math.random() * 60}px`);
+					em.style.animationDuration = `${dur}s, ${fdur}s`;
+					em.style.animationDelay = `${-Math.random() * dur}s, ${-Math.random() * fdur}s`;
+					emberHost.appendChild(em);
+				}
+			}
+
+			let etx = 0;
+			let ety = 0;
+			let ecx = 0;
+			let ecy = 0;
+			let thx = 50;
+			let thy = 50;
+			let hx = 50;
+			let hy = 50;
+
+			onCtaMove = (e: MouseEvent) => {
+				const r = cta.getBoundingClientRect();
+				const px = (e.clientX - r.left) / r.width;
+				const py = (e.clientY - r.top) / r.height;
+				etx = Math.max(-1, Math.min(1, (px - 0.5) * 2));
+				ety = Math.max(-1, Math.min(1, (py - 0.5) * 2));
+				thx = Math.max(0, Math.min(100, px * 100));
+				thy = Math.max(0, Math.min(100, py * 100));
+			};
+			onCtaLeave = () => {
+				etx = 0;
+				ety = 0;
+				thx = 50;
+				thy = 50;
+			};
+			const ctaLoop = () => {
+				ecx += (etx - ecx) * 0.06;
+				ecy += (ety - ecy) * 0.06;
+				hx += (thx - hx) * 0.08;
+				hy += (thy - hy) * 0.08;
+				emberHost.style.translate = `${ecx * 16}px ${ecy * 10}px`;
+				cta.style.setProperty('--hx', `${hx}%`);
+				cta.style.setProperty('--hy', `${hy}%`);
+				ctaRaf = window.requestAnimationFrame(ctaLoop);
+			};
+			cta.addEventListener('mousemove', onCtaMove, { passive: true });
+			cta.addEventListener('mouseleave', onCtaLeave, { passive: true });
+			ctaRaf = window.requestAnimationFrame(ctaLoop);
+			ctaActive = true;
+		}
+
+		// 6. Story / positioning — subtle cursor glow + micro-parallax.
+		const story = document.querySelector<HTMLElement>('.intro-state');
+		let storyRaf = 0;
+		let storyActive = false;
+		let onStoryMove: ((e: MouseEvent) => void) | null = null;
+		let onStoryLeave: (() => void) | null = null;
+
+		if (story && !prefersReducedMotion) {
+			const storyText = story.querySelector<HTMLElement>('.wrap p');
+			const storyNum = story.querySelector<HTMLElement>('.num');
+			let stx = 0;
+			let sty = 0;
+			let scx = 0;
+			let scy = 0;
+			let smtx = 50;
+			let smty = 50;
+			let smx = 50;
+			let smy = 50;
+
+			onStoryMove = (e: MouseEvent) => {
+				const r = story.getBoundingClientRect();
+				const px = (e.clientX - r.left) / r.width;
+				const py = (e.clientY - r.top) / r.height;
+				stx = Math.max(-1, Math.min(1, (px - 0.5) * 2));
+				sty = Math.max(-1, Math.min(1, (py - 0.5) * 2));
+				smtx = Math.max(0, Math.min(100, px * 100));
+				smty = Math.max(0, Math.min(100, py * 100));
+			};
+			onStoryLeave = () => {
+				stx = 0;
+				sty = 0;
+				smtx = 50;
+				smty = 50;
+			};
+			const storyLoop = () => {
+				scx += (stx - scx) * 0.05;
+				scy += (sty - scy) * 0.05;
+				smx += (smtx - smx) * 0.08;
+				smy += (smty - smy) * 0.08;
+				story.style.setProperty('--mx', `${smx}%`);
+				story.style.setProperty('--my', `${smy}%`);
+				if (storyText) storyText.style.translate = `${scx * 5}px ${scy * 4}px`;
+				if (storyNum) storyNum.style.translate = `${scx * -8}px ${scy * -5}px`;
+				storyRaf = window.requestAnimationFrame(storyLoop);
+			};
+			story.addEventListener('mousemove', onStoryMove, { passive: true });
+			story.addEventListener('mouseleave', onStoryLeave, { passive: true });
+			storyRaf = window.requestAnimationFrame(storyLoop);
+			storyActive = true;
+		}
+
 		return () => {
 			io?.disconnect();
 			window.removeEventListener('scroll', onScroll);
 			if (parallaxActive) {
 				window.removeEventListener('mousemove', onMouseMove);
 				window.cancelAnimationFrame(rafId);
+			}
+			if (ctaActive) {
+				if (onCtaMove) cta?.removeEventListener('mousemove', onCtaMove);
+				if (onCtaLeave) cta?.removeEventListener('mouseleave', onCtaLeave);
+				window.cancelAnimationFrame(ctaRaf);
+			}
+			if (storyActive) {
+				if (onStoryMove) story?.removeEventListener('mousemove', onStoryMove);
+				if (onStoryLeave) story?.removeEventListener('mouseleave', onStoryLeave);
+				window.cancelAnimationFrame(storyRaf);
 			}
 		};
 	}, []);

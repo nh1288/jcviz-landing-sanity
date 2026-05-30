@@ -15,6 +15,8 @@ export function FinalCta({ data }: FinalCtaProps) {
 	return (
 		<section className="cta-final" id="contact">
 			<div className="bg" aria-hidden="true"></div>
+			<div className="cta-heat" aria-hidden="true"></div>
+			<div className="cta-embers" id="cta-embers" aria-hidden="true"></div>
 			<div className="content" data-reveal>
 				{data.eyebrow ? (
 					<div className="eyebrow">{data.eyebrow}</div>
