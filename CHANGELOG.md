@@ -6,7 +6,13 @@
 - Keo-tha sap xep: them @sanity/orderable-document-list@1.5.1 + orderRankField (an) cho 6 collection (service/value/projectType/process/portfolio/team); structure dung orderableDocumentListDeskItem. Frontend GROQ doi sang `order(orderRank asc, order asc)` -> chua drag (orderRank null) thi giu nguyen thu tu `order` cu, KHONG regression khi deploy; drag trong Studio moi chiem uu tien.
 - Studio-only (tru phan GROQ order doi them khoa phu, da verify giu nguyen output). KHONG doi visual.
 - Verify: tsc --noEmit pass; dev server `/` (services dung thu tu) + `/studio` HTTP 200, khong loi compile.
-- Parked: Presentation tool (live visual editing) tren production can read token tren Vercel -> dung rule bao mat "KHONG push READ_TOKEN len Vercel". Cho user quyet huong (xem SESSION).
+
+## [2026-06-13] Presentation tool — live draft preview / visual editing
+- Them presentationTool() + route /api/draft-mode/enable (next-sanity) & /disable. RootLayout render <VisualEditing/> CHI khi draft mode bat.
+- getLandingContent fetch perspective `drafts` + stega CHI khi draft mode ON va co read token; nguoc lai dung published reader nac danh nhu cu.
+- An toan: KHONG co SANITY_API_READ_TOKEN -> public site y nguyen (published, khong stega, khong overlay). Route enable tra 401 (khong crash) khi thieu token.
+- ⚠️ Noi rule co chu dich (user duyet 2026-06-13): de preview tren PRODUCTION, OWNER tu them `SANITY_API_READ_TOKEN` (Viewer role) vao Vercel (Production env) + `.env.local` -> redeploy. Truoc do rule la "KHONG push READ_TOKEN len Vercel".
+- Verify: tsc pass; dev `/` 200 (no stega), `/studio` 200 (Presentation load), enable route 401 khi chua co token, khong loi.
 
 ## [2026-06-13] Them section Studio / Team (CMS-backed)
 - Section moi "Studio" (the people behind the frames) chen giua Portfolio va Final CTA, route `/` id `#studio`.
