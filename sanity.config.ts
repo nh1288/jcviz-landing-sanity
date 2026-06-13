@@ -19,6 +19,7 @@
 
 import { visionTool } from '@sanity/vision';
 import { defineConfig } from 'sanity';
+import { presentationTool } from 'sanity/presentation';
 import { structureTool } from 'sanity/structure';
 
 import { apiVersion, dataset, projectId } from './sanity/env';
@@ -45,6 +46,14 @@ export default defineConfig({
 	dataset,
 	plugins: [
 		structureTool({ structure }),
+		// Live visual editing: opens the site in an iframe and turns on draft
+		// mode via /api/draft-mode/enable. Requires SANITY_API_READ_TOKEN on the
+		// server to read drafts; without it the preview shows published content.
+		presentationTool({
+			previewUrl: {
+				previewMode: { enable: '/api/draft-mode/enable' },
+			},
+		}),
 		visionTool({ defaultApiVersion: apiVersion }),
 	],
 	schema: {

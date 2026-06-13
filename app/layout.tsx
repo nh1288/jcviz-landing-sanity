@@ -10,6 +10,8 @@
  */
 
 import type { Metadata, Viewport } from 'next';
+import { draftMode } from 'next/headers';
+import { VisualEditing } from 'next-sanity';
 
 import './globals.css';
 
@@ -39,11 +41,13 @@ export const viewport: Viewport = {
 	themeColor: '#080809',
 };
 
-export default function RootLayout({
+export default async function RootLayout({
 	children,
 }: {
 	children: React.ReactNode;
 }) {
+	const { isEnabled: isDraft } = await draftMode();
+
 	return (
 		<html lang="en">
 			<head>
@@ -55,7 +59,12 @@ export default function RootLayout({
 				/>
 				<link rel="stylesheet" href={FONTS_HREF} />
 			</head>
-			<body>{children}</body>
+			<body>
+				{children}
+				{/* Visual-editing overlays load only inside the Presentation iframe
+				    (draft mode on). Never rendered for normal public visitors. */}
+				{isDraft ? <VisualEditing /> : null}
+			</body>
 		</html>
 	);
 }

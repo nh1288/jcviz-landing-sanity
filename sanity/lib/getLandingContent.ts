@@ -11,6 +11,7 @@
  * client beyond the rendered HTML.
  */
 
+import { draftMode } from 'next/headers';
 import { cache } from 'react';
 
 import { fallbackContent } from '@/lib/fallbackContent';
@@ -31,6 +32,7 @@ import type {
 	ValuePoint,
 } from '@/lib/types';
 
+import { readToken } from '../env';
 import { client } from './client';
 import { portableTextToManifestoLines } from './portableText';
 import {
@@ -63,6 +65,23 @@ const FETCH_OPTIONS = {
 
 export const getLandingContent = cache(
 	async (): Promise<LandingContent> => {
+		// Draft preview (Presentation tool) only engages when draft mode is on
+		// AND a read token exists. Otherwise this is the anonymous published
+		// reader — the live public site is unaffected when no token is set.
+		const { isEnabled: isDraft } = await draftMode();
+		const preview = isDraft && Boolean(readToken);
+
+		const reader = preview
+			? client.withConfig({
+					token: readToken,
+					perspective: 'drafts',
+					useCdn: false,
+					stega: { studioUrl: '/studio' },
+				})
+			: client;
+
+		const options = preview ? { cache: 'no-store' as const } : FETCH_OPTIONS;
+
 		try {
 			const [
 				site,
@@ -79,19 +98,19 @@ export const getLandingContent = cache(
 				contact,
 				seo,
 			] = await Promise.all([
-				client.fetch<SiteSettings | null>(SITE_SETTINGS_QUERY, {}, FETCH_OPTIONS),
-				client.fetch<HeroData | null>(HERO_QUERY, {}, FETCH_OPTIONS),
-				client.fetch<SanityPositioning | null>(POSITIONING_QUERY, {}, FETCH_OPTIONS),
-				client.fetch<Service[] | null>(SERVICES_QUERY, {}, FETCH_OPTIONS),
-				client.fetch<ValuePoint[] | null>(VALUE_POINTS_QUERY, {}, FETCH_OPTIONS),
-				client.fetch<ProjectType[] | null>(PROJECT_TYPES_QUERY, {}, FETCH_OPTIONS),
-				client.fetch<ProcessStep[] | null>(PROCESS_STEPS_QUERY, {}, FETCH_OPTIONS),
-				client.fetch<PortfolioItem[] | null>(PORTFOLIO_ITEMS_QUERY, {}, FETCH_OPTIONS),
-				client.fetch<StudioData | null>(STUDIO_SECTION_QUERY, {}, FETCH_OPTIONS),
-				client.fetch<TeamMember[] | null>(TEAM_MEMBERS_QUERY, {}, FETCH_OPTIONS),
-				client.fetch<FinalCtaData | null>(FINAL_CTA_QUERY, {}, FETCH_OPTIONS),
-				client.fetch<ContactInfo | null>(CONTACT_INFO_QUERY, {}, FETCH_OPTIONS),
-				client.fetch<SeoSettings | null>(SEO_SETTINGS_QUERY, {}, FETCH_OPTIONS),
+				reader.fetch<SiteSettings | null>(SITE_SETTINGS_QUERY, {}, options),
+				reader.fetch<HeroData | null>(HERO_QUERY, {}, options),
+				reader.fetch<SanityPositioning | null>(POSITIONING_QUERY, {}, options),
+				reader.fetch<Service[] | null>(SERVICES_QUERY, {}, options),
+				reader.fetch<ValuePoint[] | null>(VALUE_POINTS_QUERY, {}, options),
+				reader.fetch<ProjectType[] | null>(PROJECT_TYPES_QUERY, {}, options),
+				reader.fetch<ProcessStep[] | null>(PROCESS_STEPS_QUERY, {}, options),
+				reader.fetch<PortfolioItem[] | null>(PORTFOLIO_ITEMS_QUERY, {}, options),
+				reader.fetch<StudioData | null>(STUDIO_SECTION_QUERY, {}, options),
+				reader.fetch<TeamMember[] | null>(TEAM_MEMBERS_QUERY, {}, options),
+				reader.fetch<FinalCtaData | null>(FINAL_CTA_QUERY, {}, options),
+				reader.fetch<ContactInfo | null>(CONTACT_INFO_QUERY, {}, options),
+				reader.fetch<SeoSettings | null>(SEO_SETTINGS_QUERY, {}, options),
 			]);
 
 			return {
