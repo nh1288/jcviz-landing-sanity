@@ -9,6 +9,11 @@ export const heroSection = defineType({
 	name: 'heroSection',
 	title: 'Hero Section',
 	type: 'document',
+	groups: [
+		{ name: 'content', title: 'Content', default: true },
+		{ name: 'buttons', title: 'Buttons' },
+		{ name: 'details', title: 'Details' },
+	],
 	fields: [
 		defineField({
 			name: 'eyebrow',
@@ -16,12 +21,14 @@ export const heroSection = defineType({
 			type: 'string',
 			description: 'Mono-uppercase label above the headline.',
 			initialValue: 'Architectural Visualization Studio',
+			group: 'content',
 		}),
 		defineField({
 			name: 'headline',
 			title: 'Headline',
 			type: 'headlineWithAccent',
 			validation: (Rule) => Rule.required(),
+			group: 'content',
 		}),
 		defineField({
 			name: 'subheadline',
@@ -29,19 +36,23 @@ export const heroSection = defineType({
 			type: 'text',
 			rows: 4,
 			description: 'Right-aligned paragraph next to the headline on desktop.',
+			group: 'content',
 		}),
 		defineField({
 			name: 'primaryCta',
 			title: 'Primary CTA (gold button)',
 			type: 'cta',
+			group: 'buttons',
 		}),
 		defineField({
 			name: 'secondaryCta',
 			title: 'Secondary CTA (ghost button)',
 			type: 'cta',
+			group: 'buttons',
 		}),
 		defineField({
 			name: 'topMeta',
+			group: 'details',
 			title: 'Top meta strip',
 			description:
 				'The two-column meta in the hero top corners (Studio location · Reel info).',
@@ -58,6 +69,7 @@ export const heroSection = defineType({
 			title: 'Marquee aria-label',
 			type: 'string',
 			initialValue: 'Who we work with',
+			group: 'details',
 		}),
 		defineField({
 			name: 'marqueeItems',
@@ -66,18 +78,21 @@ export const heroSection = defineType({
 			of: [{ type: 'string' }],
 			description:
 				'Phrases shown in the looping marquee. Use neutral role categories — avoid third-party brand names.',
+			group: 'details',
 		}),
 		defineField({
 			name: 'scrollText',
 			title: 'Scroll caption',
 			type: 'string',
 			description: 'Bottom-left "Scroll · Reel 04 · Selected Works" copy.',
+			group: 'details',
 		}),
 		defineField({
 			name: 'creditsText',
 			title: 'Credits caption',
 			type: 'string',
 			description: 'Bottom-right credits text.',
+			group: 'details',
 		}),
 	],
 	preview: {

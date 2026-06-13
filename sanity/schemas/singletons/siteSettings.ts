@@ -13,6 +13,11 @@ export const siteSettings = defineType({
 	name: 'siteSettings',
 	title: 'Site Settings',
 	type: 'document',
+	groups: [
+		{ name: 'brand', title: 'Brand', default: true },
+		{ name: 'nav', title: 'Navigation' },
+		{ name: 'footer', title: 'Footer' },
+	],
 	fields: [
 		defineField({
 			name: 'siteTitle',
@@ -21,27 +26,32 @@ export const siteSettings = defineType({
 			description:
 				'Used as the default browser tab title and the SEO fallback.',
 			validation: (Rule) => Rule.required(),
+			group: 'brand',
 		}),
 		defineField({
 			name: 'tagline',
 			title: 'Tagline',
 			type: 'string',
+			group: 'brand',
 		}),
 		defineField({
 			name: 'brandName',
 			title: 'Brand name (header logotype)',
 			type: 'string',
 			validation: (Rule) => Rule.required(),
+			group: 'brand',
 		}),
 		defineField({
 			name: 'brandSub',
 			title: 'Brand sub-label',
 			type: 'string',
 			description: 'Small line after the brand mark, e.g. "Architectural Visualization · Est. 2025".',
+			group: 'brand',
 		}),
 		defineField({
 			name: 'navItems',
 			title: 'Primary navigation',
+			group: 'nav',
 			type: 'array',
 			of: [
 				{
@@ -72,12 +82,14 @@ export const siteSettings = defineType({
 			type: 'text',
 			rows: 3,
 			description: 'Short paragraph under the brand block in the footer.',
+			group: 'footer',
 		}),
 		defineField({
 			name: 'footerColumns',
 			title: 'Footer link columns',
 			description:
 				'Columns next to the brand block (e.g. Studio · Services · Contact).',
+			group: 'footer',
 			type: 'array',
 			of: [
 				{
@@ -124,12 +136,14 @@ export const siteSettings = defineType({
 			title: 'Custom logo',
 			type: 'imageWithAlt',
 			description: 'Optional. If empty, the JCVIZ wordmark renders as text.',
+			group: 'brand',
 		}),
 		defineField({
 			name: 'favicon',
 			title: 'Favicon',
 			type: 'image',
 			description: 'Square 32×32 or 64×64.',
+			group: 'brand',
 		}),
 	],
 	preview: {
