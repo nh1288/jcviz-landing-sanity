@@ -1,5 +1,13 @@
 ﻿# CHANGELOG - JCVIZ Landing Page
 
+## [2026-06-13] Nang cap quan tri Studio (admin UX) — Tier 1 + drag-to-reorder
+- Desk structure tuy bien (sanity/deskStructure.ts): sidebar theo thu tu trang (Hero -> ... -> Final CTA), singleton mo 1-click (bo "list of one"), divider tach nhom Settings (Site/Contact/SEO). Wire qua structureTool({structure}).
+- Field groups (tab) cho singleton lon: Hero (Content/Buttons/Details), Final CTA (Content/Buttons), Site Settings (Brand/Navigation/Footer).
+- Keo-tha sap xep: them @sanity/orderable-document-list@1.5.1 + orderRankField (an) cho 6 collection (service/value/projectType/process/portfolio/team); structure dung orderableDocumentListDeskItem. Frontend GROQ doi sang `order(orderRank asc, order asc)` -> chua drag (orderRank null) thi giu nguyen thu tu `order` cu, KHONG regression khi deploy; drag trong Studio moi chiem uu tien.
+- Studio-only (tru phan GROQ order doi them khoa phu, da verify giu nguyen output). KHONG doi visual.
+- Verify: tsc --noEmit pass; dev server `/` (services dung thu tu) + `/studio` HTTP 200, khong loi compile.
+- Parked: Presentation tool (live visual editing) tren production can read token tren Vercel -> dung rule bao mat "KHONG push READ_TOKEN len Vercel". Cho user quyet huong (xem SESSION).
+
 ## [2026-06-13] Them section Studio / Team (CMS-backed)
 - Section moi "Studio" (the people behind the frames) chen giua Portfolio va Final CTA, route `/` id `#studio`.
 - CMS-backed day du: singleton `studioSection` (so + tagline + headline + paragraphs) + collection `teamMember` (name, role, focus, portrait, order, visible). Admin sua qua /studio.
