@@ -372,6 +372,50 @@ export const fallbackContent: LandingContent = {
 		},
 	],
 
+	studio: {
+		sectionNumber: '— 06 / Studio',
+		tagline: 'The people behind the frames',
+		headline: {
+			partA: 'A compact studio of directors, artists and',
+			accentA: 'light-obsessives.',
+		},
+		paragraphs: [
+			'JCVIZ is deliberately small. The people who scope your project are the same people who light, render and grade it — no account layer, no hand-off that loses the intent.',
+			'We come from architecture, film and photography. That mix is the point: every frame is judged as an image first and a render second.',
+		],
+	},
+
+	team: [
+		{
+			order: 1,
+			name: 'Khoa Nguyễn',
+			role: 'Founder · Creative Director',
+			focus:
+				'Sets the visual direction for every launch — from first mood reference to final grade.',
+		},
+		{
+			order: 2,
+			name: 'Linh Trần',
+			role: 'Lead Visualization Artist',
+			focus:
+				'Turns masterplans into frames buyers remember — camera, composition and story.',
+		},
+		{
+			order: 3,
+			name: 'Marco Belli',
+			role: 'Lighting & Look Development',
+			focus:
+				'Scripts light and atmosphere so a render breathes like a photograph.',
+		},
+		{
+			order: 4,
+			name: 'Vy Phạm',
+			role: 'Studio & Client Lead',
+			focus:
+				'Keeps briefs, timelines and developers aligned from kickoff to delivery.',
+		},
+	],
+
 	finalCta: {
 		eyebrow: '— Now booking · Q3 2026',
 		headline: {

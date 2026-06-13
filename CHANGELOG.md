@@ -1,5 +1,14 @@
 ﻿# CHANGELOG - JCVIZ Landing Page
 
+## [2026-06-13] Them section Studio / Team (CMS-backed)
+- Section moi "Studio" (the people behind the frames) chen giua Portfolio va Final CTA, route `/` id `#studio`.
+- CMS-backed day du: singleton `studioSection` (so + tagline + headline + paragraphs) + collection `teamMember` (name, role, focus, portrait, order, visible). Admin sua qua /studio.
+- Portrait optional -> fallback monogram gold tu initials (giong placeholder cua portfolio/projectType).
+- Tang tich hop: lib/types.ts (StudioData + TeamMember) · fallbackContent (1 studio + 4 member mau) · sanity schema (2 file moi + index + singleton enforcement) · queries (STUDIO_SECTION + TEAM_MEMBERS) · getLandingContent (fetch + fallback buildStudio) · component Studio.tsx · globals.css (.studio-roster grid 4/2/1 + monogram) · seed-sanity.ts (studio + team seedable).
+- Visual giu nguyen brand cinematic dark editorial (Cormorant + JetBrains Mono + gold), reuse .section-head + data-reveal.
+- Verify: tsc --noEmit pass; dev server `/` + `/studio` HTTP 200, render section + roster + monogram, khong loi compile. (next build local van skip vi exFAT.)
+- CHUA push -> chua deploy production (cho user OK). Neu seed lai noi dung: chay `npm run seed:sanity`.
+
 ## [2026-05-30] SEO / a11y / security quick wins (audit Nhom 1)
 - SEO: them metadataBase, canonical, day du Open Graph + Twitter card.
 - OG image: them public/og-default.png (branded dark-premium 1200x630) lam fallback; anh Sanity (seo.ogImageUrl) van uu tien khi co.

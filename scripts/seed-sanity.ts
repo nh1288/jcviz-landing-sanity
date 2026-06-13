@@ -25,6 +25,7 @@ import type {
 	ProcessStep,
 	ProjectType,
 	Service,
+	TeamMember,
 	ValuePoint,
 } from '../lib/types';
 import { manifestoLinesToPortableText } from '../sanity/lib/portableText';
@@ -155,6 +156,15 @@ function buildSingletons() {
 		detailParagraphs: c.positioning.detailParagraphs,
 	};
 
+	const studioSection = {
+		_id: 'studioSection',
+		_type: 'studioSection',
+		sectionNumber: c.studio.sectionNumber,
+		tagline: c.studio.tagline,
+		headline: cleanHeadline(c.studio.headline),
+		paragraphs: c.studio.paragraphs,
+	};
+
 	const finalCta = {
 		_id: 'finalCta',
 		_type: 'finalCta',
@@ -188,6 +198,7 @@ function buildSingletons() {
 		siteSettings,
 		heroSection,
 		positioningSection,
+		studioSection,
 		finalCta,
 		contactInfo,
 		seoSettings,
@@ -261,6 +272,19 @@ function buildPortfolioItems(items: PortfolioItem[]) {
 	}));
 }
 
+function buildTeamMembers(items: TeamMember[]) {
+	return items.map((m) => ({
+		_id: `team-member-${ord(m.order)}`,
+		_type: 'teamMember',
+		name: m.name,
+		role: m.role,
+		focus: m.focus,
+		order: m.order,
+		visible: true,
+		// image: intentionally omitted — uploaded later via Studio.
+	}));
+}
+
 // ---- runner ----------------------------------------------------------
 
 type SanityDoc = { _id: string; _type: string };
@@ -285,14 +309,16 @@ async function main() {
 	await commit('projectTypes', buildProjectTypes(c.projectTypes));
 	await commit('processSteps', buildProcessSteps(c.processSteps));
 	await commit('portfolioItems', buildPortfolioItems(c.portfolioItems));
+	await commit('teamMembers', buildTeamMembers(c.team));
 
 	const total =
-		6 +
+		7 +
 		c.services.length +
 		c.valuePoints.length +
 		c.projectTypes.length +
 		c.processSteps.length +
-		c.portfolioItems.length;
+		c.portfolioItems.length +
+		c.team.length;
 
 	console.log(
 		`\n✓ Seed complete — ${total} documents written / replaced.\n` +

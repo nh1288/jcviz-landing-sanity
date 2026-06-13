@@ -28,6 +28,7 @@ const SINGLETON_TYPES = new Set([
 	'siteSettings',
 	'heroSection',
 	'positioningSection',
+	'studioSection',
 	'finalCta',
 	'contactInfo',
 	'seoSettings',

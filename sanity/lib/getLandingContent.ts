@@ -26,6 +26,8 @@ import type {
 	SeoSettings,
 	Service,
 	SiteSettings,
+	StudioData,
+	TeamMember,
 	ValuePoint,
 } from '@/lib/types';
 
@@ -42,6 +44,8 @@ import {
 	SEO_SETTINGS_QUERY,
 	SERVICES_QUERY,
 	SITE_SETTINGS_QUERY,
+	STUDIO_SECTION_QUERY,
+	TEAM_MEMBERS_QUERY,
 	VALUE_POINTS_QUERY,
 } from './queries';
 
@@ -69,6 +73,8 @@ export const getLandingContent = cache(
 				projectTypes,
 				processSteps,
 				portfolioItems,
+				studio,
+				team,
 				finalCta,
 				contact,
 				seo,
@@ -81,6 +87,8 @@ export const getLandingContent = cache(
 				client.fetch<ProjectType[] | null>(PROJECT_TYPES_QUERY, {}, FETCH_OPTIONS),
 				client.fetch<ProcessStep[] | null>(PROCESS_STEPS_QUERY, {}, FETCH_OPTIONS),
 				client.fetch<PortfolioItem[] | null>(PORTFOLIO_ITEMS_QUERY, {}, FETCH_OPTIONS),
+				client.fetch<StudioData | null>(STUDIO_SECTION_QUERY, {}, FETCH_OPTIONS),
+				client.fetch<TeamMember[] | null>(TEAM_MEMBERS_QUERY, {}, FETCH_OPTIONS),
 				client.fetch<FinalCtaData | null>(FINAL_CTA_QUERY, {}, FETCH_OPTIONS),
 				client.fetch<ContactInfo | null>(CONTACT_INFO_QUERY, {}, FETCH_OPTIONS),
 				client.fetch<SeoSettings | null>(SEO_SETTINGS_QUERY, {}, FETCH_OPTIONS),
@@ -98,6 +106,8 @@ export const getLandingContent = cache(
 				processSteps: nonEmpty(processSteps) ?? fallbackContent.processSteps,
 				portfolioItems:
 					nonEmpty(portfolioItems) ?? fallbackContent.portfolioItems,
+				studio: buildStudio(studio),
+				team: nonEmpty(team) ?? fallbackContent.team,
 				finalCta: finalCta ?? fallbackContent.finalCta,
 				contact: contact ?? fallbackContent.contact,
 				seo: seo ?? fallbackContent.seo,
@@ -114,6 +124,24 @@ export const getLandingContent = cache(
 
 function nonEmpty<T>(arr: T[] | null | undefined): T[] | null {
 	return Array.isArray(arr) && arr.length > 0 ? arr : null;
+}
+
+/**
+ * Studio intro. Falls back to local content if the singleton is missing or
+ * has no headline; otherwise backfills the section labels / paragraphs that
+ * editors left blank.
+ */
+function buildStudio(raw: StudioData | null | undefined): StudioData {
+	if (!raw || !raw.headline) return fallbackContent.studio;
+	return {
+		sectionNumber: raw.sectionNumber ?? fallbackContent.studio.sectionNumber,
+		tagline: raw.tagline ?? fallbackContent.studio.tagline,
+		headline: raw.headline,
+		paragraphs:
+			Array.isArray(raw.paragraphs) && raw.paragraphs.length > 0
+				? raw.paragraphs
+				: fallbackContent.studio.paragraphs,
+	};
 }
 
 function buildPositioning(

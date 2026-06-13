@@ -58,6 +58,21 @@ export const POSITIONING_QUERY = `*[_type == "positioningSection"][0]{
 	detailParagraphs
 }`;
 
+export const STUDIO_SECTION_QUERY = `*[_type == "studioSection"][0]{
+	sectionNumber,
+	tagline,
+	headline${HEADLINE_FRAGMENT},
+	paragraphs
+}`;
+
+export const TEAM_MEMBERS_QUERY = `*[_type == "teamMember" && visible != false] | order(order asc){
+	name,
+	role,
+	focus,
+	image${IMAGE_FRAGMENT},
+	order
+}`;
+
 export const FINAL_CTA_QUERY = `*[_type == "finalCta"][0]{
 	eyebrow,
 	headline${HEADLINE_FRAGMENT},

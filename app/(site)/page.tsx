@@ -19,6 +19,7 @@ import { Positioning } from '@/components/sections/Positioning';
 import { Process } from '@/components/sections/Process';
 import { ProjectTypes } from '@/components/sections/ProjectTypes';
 import { Services } from '@/components/sections/Services';
+import { Studio } from '@/components/sections/Studio';
 import { Value } from '@/components/sections/Value';
 import { getLandingContent } from '@/sanity/lib/getLandingContent';
 
@@ -79,6 +80,7 @@ export default async function HomePage() {
 			<ProjectTypes items={c.projectTypes} />
 			<Process items={c.processSteps} />
 			<PortfolioPreview items={c.portfolioItems} />
+			<Studio data={c.studio} team={c.team} />
 			<FinalCta data={c.finalCta} />
 		</main>
 	);

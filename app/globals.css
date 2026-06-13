@@ -654,3 +654,55 @@ footer.foot{padding:80px 32px 32px;border-top:1px solid var(--line);
 @media (prefers-reduced-motion:reduce){
   .mobile-nav-panel,.mobile-nav-toggle .bar,.mobile-nav-list a{transition:none}
 }
+
+/* ============================================================
+   STUDIO / TEAM — "the people behind the frames" (editorial roster).
+   Intro reuses .section-head; the roster is a 4-up portrait grid sharing
+   hairline gold separators. Until a portrait is uploaded via Studio, each
+   member falls back to a gold monogram built from their initials.
+   ============================================================ */
+.studio-section{border-top:1px solid var(--line)}
+.studio-section .section-head .lede + .lede{margin-top:18px}
+
+.studio-roster{display:grid;grid-template-columns:repeat(4,1fr);
+  gap:1px;background:var(--line);border:1px solid var(--line)}
+.studio-card{background:var(--bg);display:flex;flex-direction:column}
+
+/* portrait — 3:4 frame; image when set, gold monogram otherwise */
+.studio-portrait{position:relative;aspect-ratio:3/4;overflow:hidden;
+  border-bottom:1px solid var(--gold-soft);
+  background:
+    radial-gradient(ellipse 75% 55% at 50% 118%, rgba(212,177,115,.16), transparent 62%),
+    linear-gradient(180deg, #15110c 0%, #0e0b08 60%, #080606 100%)}
+.studio-portrait img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  filter:grayscale(.18) contrast(1.03);
+  transition:transform .8s cubic-bezier(.4,0,.2,1),filter .6s ease}
+.studio-monogram{position:absolute;inset:0;display:grid;place-items:center;
+  font-family:'Cormorant Garamond',serif;font-weight:300;font-style:italic;
+  font-size:clamp(54px,6vw,92px);letter-spacing:.02em;color:var(--gold);opacity:.5;
+  text-shadow:0 6px 36px rgba(0,0,0,.5);transition:opacity .5s ease,transform .8s cubic-bezier(.4,0,.2,1)}
+.studio-index{position:absolute;top:14px;right:16px;font-size:11px;letter-spacing:.22em;
+  color:var(--ink-faint);transition:color .4s ease}
+
+.studio-card:hover .studio-portrait img{transform:scale(1.045);filter:grayscale(0) contrast(1.05)}
+.studio-card:hover .studio-monogram{opacity:.8;transform:scale(1.04)}
+.studio-card:hover .studio-index{color:var(--gold)}
+
+/* body — role eyebrow over a gold rule, name in serif, focus line */
+.studio-card-body{padding:24px 26px 32px}
+.studio-card-body .eyebrow{display:block;padding-top:14px;border-top:1px solid var(--gold);
+  margin-bottom:12px}
+.studio-card-body h4{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:28px;
+  line-height:1.08;letter-spacing:-.01em;margin:0 0 10px;color:var(--ink)}
+.studio-card-body p{font-size:13px;line-height:21px;color:var(--ink-dim);margin:0;max-width:34ch}
+
+@media (max-width:1100px){
+  .studio-roster{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:640px){
+  .studio-roster{grid-template-columns:1fr}
+  .studio-portrait{aspect-ratio:4/3}
+}
+@media (prefers-reduced-motion:reduce){
+  .studio-portrait img,.studio-monogram,.studio-index{transition:none}
+}

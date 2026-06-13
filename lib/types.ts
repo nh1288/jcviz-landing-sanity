@@ -160,6 +160,21 @@ export type FinalCtaData = {
 	secondaryCta?: Cta;
 };
 
+export type StudioData = {
+	sectionNumber?: string;
+	tagline?: string;
+	headline: HeadlineWithAccent;
+	paragraphs: string[];
+};
+
+export type TeamMember = {
+	name: string;
+	role: string;
+	focus?: string;
+	image?: ImageWithAlt;
+	order: number;
+};
+
 export type ContactInfo = {
 	email: string;
 	phone: string;
@@ -185,6 +200,8 @@ export type LandingContent = {
 	projectTypes: ProjectType[];
 	processSteps: ProcessStep[];
 	portfolioItems: PortfolioItem[];
+	studio: StudioData;
+	team: TeamMember[];
 	finalCta: FinalCtaData;
 	contact: ContactInfo;
 	seo: SeoSettings;

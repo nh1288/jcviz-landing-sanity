@@ -20,12 +20,14 @@ import { heroSection } from './singletons/heroSection';
 import { positioningSection } from './singletons/positioningSection';
 import { seoSettings } from './singletons/seoSettings';
 import { siteSettings } from './singletons/siteSettings';
+import { studioSection } from './singletons/studioSection';
 
 // Collections (multiple documents).
 import { portfolioItem } from './documents/portfolioItem';
 import { processStep } from './documents/processStep';
 import { projectType } from './documents/projectType';
 import { service } from './documents/service';
+import { teamMember } from './documents/teamMember';
 import { valuePoint } from './documents/valuePoint';
 
 export const schemaTypes: SchemaTypeDefinition[] = [
@@ -38,6 +40,7 @@ export const schemaTypes: SchemaTypeDefinition[] = [
 	siteSettings,
 	heroSection,
 	positioningSection,
+	studioSection,
 	finalCta,
 	contactInfo,
 	seoSettings,
@@ -48,4 +51,5 @@ export const schemaTypes: SchemaTypeDefinition[] = [
 	projectType,
 	processStep,
 	portfolioItem,
+	teamMember,
 ];
