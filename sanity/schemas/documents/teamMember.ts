@@ -6,6 +6,7 @@
  * gold monogram built from the member's initials.
  */
 
+import { orderRankField } from '@sanity/orderable-document-list';
 import { defineField, defineType } from 'sanity';
 
 export const teamMember = defineType({
@@ -13,6 +14,7 @@ export const teamMember = defineType({
 	title: 'Team Member',
 	type: 'document',
 	fields: [
+		orderRankField({ type: 'teamMember' }),
 		defineField({
 			name: 'name',
 			title: 'Name',

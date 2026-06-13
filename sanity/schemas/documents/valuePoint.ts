@@ -3,6 +3,7 @@
  * Renders in a 3-column grid in the value section.
  */
 
+import { orderRankField } from '@sanity/orderable-document-list';
 import { defineField, defineType } from 'sanity';
 
 export const valuePoint = defineType({
@@ -10,6 +11,7 @@ export const valuePoint = defineType({
 	title: 'Value Pillar',
 	type: 'document',
 	fields: [
+		orderRankField({ type: 'valuePoint' }),
 		defineField({
 			name: 'title',
 			title: 'Title',

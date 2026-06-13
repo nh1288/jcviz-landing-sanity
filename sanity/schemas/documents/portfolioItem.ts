@@ -6,6 +6,7 @@
  * by `placeholderVariant` so the layout never collapses.
  */
 
+import { orderRankField } from '@sanity/orderable-document-list';
 import { defineField, defineType } from 'sanity';
 
 export const portfolioItem = defineType({
@@ -13,6 +14,7 @@ export const portfolioItem = defineType({
 	title: 'Portfolio Item',
 	type: 'document',
 	fields: [
+		orderRankField({ type: 'portfolioItem' }),
 		defineField({
 			name: 'title',
 			title: 'Title',

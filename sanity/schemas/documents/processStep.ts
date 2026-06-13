@@ -4,6 +4,7 @@
  *  → Render Production → Post-production & Final Delivery).
  */
 
+import { orderRankField } from '@sanity/orderable-document-list';
 import { defineField, defineType } from 'sanity';
 
 export const processStep = defineType({
@@ -11,6 +12,7 @@ export const processStep = defineType({
 	title: 'Process Step',
 	type: 'document',
 	fields: [
+		orderRankField({ type: 'processStep' }),
 		defineField({
 			name: 'title',
 			title: 'Title',

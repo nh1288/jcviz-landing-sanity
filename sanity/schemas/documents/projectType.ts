@@ -3,6 +3,7 @@
  * Renders in a 4-column grid showing the eight product categories.
  */
 
+import { orderRankField } from '@sanity/orderable-document-list';
 import { defineField, defineType } from 'sanity';
 
 export const projectType = defineType({
@@ -10,6 +11,7 @@ export const projectType = defineType({
 	title: 'Project Type',
 	type: 'document',
 	fields: [
+		orderRankField({ type: 'projectType' }),
 		defineField({
 			name: 'title',
 			title: 'Title',

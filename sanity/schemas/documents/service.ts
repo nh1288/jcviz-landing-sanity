@@ -5,6 +5,7 @@
  * Frontend renders cards in a 2-col grid, sorted by `order` ascending.
  */
 
+import { orderRankField } from '@sanity/orderable-document-list';
 import { defineField, defineType } from 'sanity';
 
 export const service = defineType({
@@ -12,6 +13,7 @@ export const service = defineType({
 	title: 'Service',
 	type: 'document',
 	fields: [
+		orderRankField({ type: 'service' }),
 		defineField({
 			name: 'title',
 			title: 'Title (plain)',

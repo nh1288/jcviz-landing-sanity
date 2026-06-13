@@ -65,7 +65,7 @@ export const STUDIO_SECTION_QUERY = `*[_type == "studioSection"][0]{
 	paragraphs
 }`;
 
-export const TEAM_MEMBERS_QUERY = `*[_type == "teamMember" && visible != false] | order(order asc){
+export const TEAM_MEMBERS_QUERY = `*[_type == "teamMember" && visible != false] | order(orderRank asc, order asc){
 	name,
 	role,
 	focus,
@@ -97,7 +97,7 @@ export const SEO_SETTINGS_QUERY = `*[_type == "seoSettings"][0]{
 	robots
 }`;
 
-export const SERVICES_QUERY = `*[_type == "service" && visible != false] | order(order asc){
+export const SERVICES_QUERY = `*[_type == "service" && visible != false] | order(orderRank asc, order asc){
 	title,
 	accent,
 	description,
@@ -108,14 +108,14 @@ export const SERVICES_QUERY = `*[_type == "service" && visible != false] | order
 	order
 }`;
 
-export const VALUE_POINTS_QUERY = `*[_type == "valuePoint" && visible != false] | order(order asc){
+export const VALUE_POINTS_QUERY = `*[_type == "valuePoint" && visible != false] | order(orderRank asc, order asc){
 	eyebrow,
 	title,
 	description,
 	order
 }`;
 
-export const PROJECT_TYPES_QUERY = `*[_type == "projectType" && visible != false] | order(order asc){
+export const PROJECT_TYPES_QUERY = `*[_type == "projectType" && visible != false] | order(orderRank asc, order asc){
 	title,
 	numberLabel,
 	description,
@@ -124,7 +124,7 @@ export const PROJECT_TYPES_QUERY = `*[_type == "projectType" && visible != false
 	order
 }`;
 
-export const PROCESS_STEPS_QUERY = `*[_type == "processStep" && visible != false] | order(order asc){
+export const PROCESS_STEPS_QUERY = `*[_type == "processStep" && visible != false] | order(orderRank asc, order asc){
 	roman,
 	title,
 	description,
@@ -132,7 +132,7 @@ export const PROCESS_STEPS_QUERY = `*[_type == "processStep" && visible != false
 	order
 }`;
 
-export const PORTFOLIO_ITEMS_QUERY = `*[_type == "portfolioItem" && visible != false] | order(order asc){
+export const PORTFOLIO_ITEMS_QUERY = `*[_type == "portfolioItem" && visible != false] | order(orderRank asc, order asc){
 	title,
 	subLabel,
 	image${IMAGE_FRAGMENT},
